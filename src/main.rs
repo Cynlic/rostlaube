@@ -5,8 +5,9 @@ use chrono::{DateTime, Utc};
 #[derive(StructOpt)]
 struct Cli {
     pattern: String,
-    #[structopt(parse(from_os_str))]
-    path: std::path::PathBuf,
+   // #[structopt(parse(from_os_str))]
+   // path: std::path::PathBuf,
+    input_name: String,
 }
 
 struct Note {
@@ -53,20 +54,21 @@ fn read_in_window () {
             .expect("Failed to read line");
         println!("You typed {}", uinput);
 }*/
-    let now: DateTime<Utc> = Utc::now();
+}
+
+
+fn main() {
+    let args = Cli::from_args();
+    println! ("Option {}", args.pattern);
+
+    match args.pattern.as_str() {
+        "n" => {
+            let note = Note::new(args.input_name);
+            note.print();
+        }
+        _ => println!("No note created :(")
+    };
     let temp: Note = Note::new("hello world".to_string());
 
     temp.print();
-}
-
-fn writeFile() {
-
-}
-
-fn backLink() {
-
-}
-
-fn main() {
-    read_in_window();
 }
